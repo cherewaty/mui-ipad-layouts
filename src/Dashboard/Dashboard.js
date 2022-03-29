@@ -157,7 +157,14 @@ function DashboardContent(props) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <>
+      <Box
+        component="nav"
+        sx={{
+          width: { sm: smallBreakpointUpDrawerOpen ? drawerWidth : 0 },
+          flexShrink: { sm: 0 },
+        }}
+        aria-label="mailbox folders"
+      >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           variant="temporary"
@@ -205,14 +212,14 @@ function DashboardContent(props) {
           </Toolbar>
           {drawer}
         </Drawer>
-      </>
+      </Box>
       <Box
         component="main"
         sx={{
           flexGrow: 1,
           p: 3,
           overflow: "auto",
-          // width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Toolbar />
