@@ -1,5 +1,6 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
+import { styled } from "@mui/material/styles";
+import MuiAppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
@@ -20,23 +21,25 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 const drawerWidth = 240;
 
-// const AppBar = styled(MuiAppBar, {
-//   shouldForwardProp: (prop) => prop !== "open",
-// })(({ theme, open }) => ({
-//   zIndex: theme.zIndex.drawer + 1,
-//   transition: theme.transitions.create(["width", "margin"], {
-//     easing: theme.transitions.easing.sharp,
-//     duration: theme.transitions.duration.leavingScreen,
-//   }),
-//   ...(open && {
-//     marginLeft: drawerWidth,
-//     width: `calc(100% - ${drawerWidth}px)`,
-//     transition: theme.transitions.create(["width", "margin"], {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//   }),
-// }));
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(["width", "margin"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: `${drawerWidth}px`,
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
 
 // const Drawer = styled(MuiDrawer, {
 //   shouldForwardProp: (prop) => prop !== "open",
@@ -65,17 +68,17 @@ const drawerWidth = 240;
 // }));
 
 function DashboardContent(props) {
-  const [smallBreakpointDrawerOpen, setSmallBreakpointDrawerOpen] =
+  const [xSmallBreakpointDrawerOpen, setXSmallBreakpointDrawerOpen] =
     React.useState(false);
-  const [mediumBreakpointDrawerOpen, setMediumBreakpointDrawerOpen] =
+  const [smallBreakpointUpDrawerOpen, setSmallBreakpointUpDrawerOpen] =
     React.useState(true);
 
   const handleDrawerToggle = () => {
-    setSmallBreakpointDrawerOpen(!smallBreakpointDrawerOpen);
+    setXSmallBreakpointDrawerOpen(!xSmallBreakpointDrawerOpen);
   };
 
   const toggleDrawer = () => {
-    setMediumBreakpointDrawerOpen(!mediumBreakpointDrawerOpen);
+    setSmallBreakpointUpDrawerOpen(!smallBreakpointUpDrawerOpen);
   };
 
   const drawer = (
@@ -118,10 +121,11 @@ function DashboardContent(props) {
       <CssBaseline />
       <AppBar
         position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
+        // sx={{
+        //   width: { sm: `calc(100% - ${drawerWidth}px)` },
+        //   ml: { sm: `${drawerWidth}px` },
+        // }}
+        open={smallBreakpointUpDrawerOpen}
       >
         <Toolbar>
           <IconButton
@@ -142,7 +146,7 @@ function DashboardContent(props) {
               marginRight: "36px",
               display: {
                 xs: "none",
-                sm: mediumBreakpointDrawerOpen ? "none" : "block",
+                sm: smallBreakpointUpDrawerOpen ? "none" : "block",
               },
             }}
           >
@@ -153,15 +157,11 @@ function DashboardContent(props) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
+      <>
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           variant="temporary"
-          open={smallBreakpointDrawerOpen}
+          open={xSmallBreakpointDrawerOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
@@ -179,11 +179,11 @@ function DashboardContent(props) {
         </Drawer>
         <Drawer
           variant="permanent"
-          open={mediumBreakpointDrawerOpen}
+          open={smallBreakpointUpDrawerOpen}
           sx={{
             display: {
               xs: "none",
-              sm: mediumBreakpointDrawerOpen ? "block" : "none",
+              sm: smallBreakpointUpDrawerOpen ? "block" : "none",
             },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
@@ -205,14 +205,14 @@ function DashboardContent(props) {
           </Toolbar>
           {drawer}
         </Drawer>
-      </Box>
+      </>
       <Box
         component="main"
         sx={{
           flexGrow: 1,
           p: 3,
           overflow: "auto",
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          // width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Toolbar />
