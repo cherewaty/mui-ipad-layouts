@@ -17,32 +17,37 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 
-const drawerWidth = 240;
-const miniDrawerWidth = 60;
+const XSMALL_DRAWER_WIDTH = 240;
+const SMALL_UP_DRAWER_WIDTH_COLLAPSED = 56;
+const SMALL_UP_DRAWER_WIDTH_OPEN = 320;
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: `${miniDrawerWidth}px`,
-    width: `calc(100% - ${miniDrawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  ...(open && {
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: `${drawerWidth}px`,
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+// const AppBar = styled(MuiAppBar, {
+//   shouldForwardProp: (prop) => prop !== "open",
+// })(({ theme, open }) => ({
+//   zIndex: theme.zIndex.drawer + 1,
+//   [theme.breakpoints.up("sm")]: {
+//     marginLeft: `${SMALL_UP_DRAWER_WIDTH_COLLAPSED}px`,
+//     width: `calc(100% - ${SMALL_UP_DRAWER_WIDTH_COLLAPSED}px)`,
+//     transition: theme.transitions.create(["width", "margin"], {
+//       easing: theme.transitions.easing.sharp,
+//       duration: theme.transitions.duration.leavingScreen,
+//     }),
+//   },
+//   ...(open && {
+//     [theme.breakpoints.up("sm")]: {
+//       marginLeft: `${SMALL_UP_DRAWER_WIDTH_OPEN}px`,
+//       width: `calc(100% - ${SMALL_UP_DRAWER_WIDTH_OPEN}px)`,
+//     },
+//     transition: theme.transitions.create(["width", "margin"], {
+//       easing: theme.transitions.easing.sharp,
+//       duration: theme.transitions.duration.enteringScreen,
+//     }),
+//   }),
+// }));
+
+// const Main = styled(Box, {
+
+// });
 
 const SmallUpDrawer = styled(Drawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -56,7 +61,7 @@ const SmallUpDrawer = styled(Drawer, {
       borderRightColor: theme.palette.divider,
       borderRightStyle: "solid",
       borderRightWidth: "1px",
-      width: drawerWidth,
+      width: SMALL_UP_DRAWER_WIDTH_OPEN,
     },
     whiteSpace: "nowrap",
     transition: theme.transitions.create("width", {
@@ -73,7 +78,7 @@ const SmallUpDrawer = styled(Drawer, {
         borderRightColor: theme.palette.divider,
         borderRightStyle: "solid",
         borderRightWidth: "1px",
-        width: miniDrawerWidth,
+        width: SMALL_UP_DRAWER_WIDTH_COLLAPSED,
       },
     }),
   },
@@ -151,38 +156,13 @@ function DashboardContent(props) {
         right: 0,
       }}
     >
-      <AppBar
-        position="fixed"
-        open={smallUpDrawerOpen}
-        elevation={0}
-        sx={{
-          backgroundColor: "background.default",
-          borderBottomColor: "divider",
-          borderBottomStyle: "solid",
-          borderBottomWidth: "1px",
-          color: "text.primary",
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={toggleXSmallDrawer}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Page title
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <Box
         component="nav"
         sx={{
           width: {
-            sm: smallUpDrawerOpen ? drawerWidth : miniDrawerWidth,
+            sm: smallUpDrawerOpen
+              ? SMALL_UP_DRAWER_WIDTH_OPEN
+              : SMALL_UP_DRAWER_WIDTH_COLLAPSED,
           },
           flexShrink: { sm: 0 },
         }}
@@ -200,7 +180,7 @@ function DashboardContent(props) {
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: drawerWidth,
+              width: XSMALL_DRAWER_WIDTH,
             },
           }}
         >
@@ -230,12 +210,37 @@ function DashboardContent(props) {
           overflow: "auto",
           width: {
             sm: smallUpDrawerOpen
-              ? `calc(100% - ${miniDrawerWidth}px)`
-              : `calc(100% - ${drawerWidth}px)`,
+              ? `calc(100% - ${SMALL_UP_DRAWER_WIDTH_COLLAPSED}px)`
+              : `calc(100% - ${SMALL_UP_DRAWER_WIDTH_OPEN}px)`,
           },
         }}
       >
-        <Toolbar />
+        <MuiAppBar
+          elevation={0}
+          position="sticky"
+          sx={{
+            backgroundColor: "background.default",
+            borderBottomColor: "divider",
+            borderBottomStyle: "solid",
+            borderBottomWidth: "1px",
+            color: "text.primary",
+          }}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={toggleXSmallDrawer}
+              sx={{ mr: 2, display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              Page title
+            </Typography>
+          </Toolbar>
+        </MuiAppBar>
         <Container>
           <Box component="div" sx={{ marginBottom: 4 }}>
             <TextField label="Enter text" variant="standard" />
