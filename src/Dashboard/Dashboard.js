@@ -49,15 +49,17 @@ const SmallUpDrawer = styled(Drawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   "& .MuiDrawer-paper": {
-    // display: "none",
     [theme.breakpoints.up("xs")]: {
+      border: 0,
       width: 0,
     },
     [theme.breakpoints.up("sm")]: {
+      borderRightColor: theme.palette.divider,
+      borderRightStyle: "solid",
+      borderRightWidth: "1px",
       width: drawerWidth,
     },
     whiteSpace: "nowrap",
-    // width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -69,6 +71,9 @@ const SmallUpDrawer = styled(Drawer, {
         duration: theme.transitions.duration.leavingScreen,
       }),
       [theme.breakpoints.up("sm")]: {
+        borderRightColor: theme.palette.divider,
+        borderRightStyle: "solid",
+        borderRightWidth: "1px",
         width: miniDrawerWidth,
       },
     }),
