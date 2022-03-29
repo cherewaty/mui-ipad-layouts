@@ -104,7 +104,16 @@ function DashboardContent() {
 
   return (
     <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: "flex" }}>
+      <Box
+        sx={{
+          display: "flex",
+          position: "fixed",
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+        }}
+      >
         <CssBaseline />
         <AppBar position="absolute" open={open}>
           <Toolbar
@@ -168,7 +177,7 @@ function DashboardContent() {
                 ? theme.palette.grey[100]
                 : theme.palette.grey[900],
             flexGrow: 1,
-            height: "100vh",
+            // height: "100vh",
             overflow: "auto",
           }}
         >
