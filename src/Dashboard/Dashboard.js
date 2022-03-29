@@ -72,17 +72,15 @@ const SmallUpDrawer = styled(Drawer, {
 }));
 
 function DashboardContent(props) {
-  const [xSmallBreakpointDrawerOpen, setXSmallBreakpointDrawerOpen] =
-    React.useState(false);
-  const [smallBreakpointUpDrawerOpen, setSmallBreakpointUpDrawerOpen] =
-    React.useState(true);
+  const [xSmallDrawerOpen, setXSmallDrawerOpen] = React.useState(false);
+  const [smallUpDrawerOpen, setSmallUpDrawerOpen] = React.useState(true);
 
-  const handleDrawerToggle = () => {
-    setXSmallBreakpointDrawerOpen(!xSmallBreakpointDrawerOpen);
+  const toggleXSmallDrawer = () => {
+    setXSmallDrawerOpen(!xSmallDrawerOpen);
   };
 
-  const toggleDrawer = () => {
-    setSmallBreakpointUpDrawerOpen(!smallBreakpointUpDrawerOpen);
+  const toggleSmallUpDrawer = () => {
+    setSmallUpDrawerOpen(!smallUpDrawerOpen);
   };
 
   const drawer = (
@@ -91,7 +89,7 @@ function DashboardContent(props) {
       sx={{
         paddingX: {
           xs: 1,
-          sm: smallBreakpointUpDrawerOpen ? 1 : 0,
+          sm: smallUpDrawerOpen ? 1 : 0,
         },
       }}
     >
@@ -104,7 +102,7 @@ function DashboardContent(props) {
           marginLeft: 2,
           display: {
             xs: "block",
-            sm: smallBreakpointUpDrawerOpen ? "block" : "none",
+            sm: smallUpDrawerOpen ? "block" : "none",
           },
         }}
       >
@@ -148,7 +146,7 @@ function DashboardContent(props) {
       <CssBaseline />
       <AppBar
         position="fixed"
-        open={smallBreakpointUpDrawerOpen}
+        open={smallUpDrawerOpen}
         elevation={0}
         sx={{
           backgroundColor: "background.default",
@@ -163,7 +161,7 @@ function DashboardContent(props) {
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            onClick={handleDrawerToggle}
+            onClick={toggleXSmallDrawer}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
             <MenuIcon />
@@ -177,7 +175,7 @@ function DashboardContent(props) {
         component="nav"
         sx={{
           width: {
-            sm: smallBreakpointUpDrawerOpen ? drawerWidth : miniDrawerWidth,
+            sm: smallUpDrawerOpen ? drawerWidth : miniDrawerWidth,
           },
           flexShrink: { sm: 0 },
         }}
@@ -186,8 +184,8 @@ function DashboardContent(props) {
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           variant="temporary"
-          open={xSmallBreakpointDrawerOpen}
-          onClose={handleDrawerToggle}
+          open={xSmallDrawerOpen}
+          onClose={toggleXSmallDrawer}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
@@ -204,7 +202,7 @@ function DashboardContent(props) {
         </Drawer>
         <Drawer
           variant="permanent"
-          open={smallBreakpointUpDrawerOpen}
+          open={smallUpDrawerOpen}
           sx={{
             display: {
               xs: "none",
@@ -212,9 +210,7 @@ function DashboardContent(props) {
             },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: smallBreakpointUpDrawerOpen
-                ? drawerWidth
-                : miniDrawerWidth,
+              width: smallUpDrawerOpen ? drawerWidth : miniDrawerWidth,
             },
           }}
         >
@@ -225,7 +221,7 @@ function DashboardContent(props) {
               px: [1],
             }}
           >
-            <IconButton onClick={toggleDrawer}>
+            <IconButton onClick={toggleSmallUpDrawer}>
               <MenuIcon />
             </IconButton>
           </Toolbar>
@@ -238,7 +234,7 @@ function DashboardContent(props) {
           flexGrow: 1,
           overflow: "auto",
           width: {
-            sm: smallBreakpointUpDrawerOpen
+            sm: smallUpDrawerOpen
               ? `calc(100% - ${miniDrawerWidth}px)`
               : `calc(100% - ${drawerWidth}px)`,
           },
