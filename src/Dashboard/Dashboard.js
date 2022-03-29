@@ -20,15 +20,20 @@ import TextField from "@mui/material/TextField";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 const drawerWidth = 240;
+const miniDrawerWidth = 60;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: `${miniDrawerWidth}px`,
+    width: `calc(100% - ${miniDrawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
   ...(open && {
     [theme.breakpoints.up("sm")]: {
       marginLeft: `${drawerWidth}px`,
@@ -82,14 +87,22 @@ function DashboardContent(props) {
   };
 
   const drawer = (
-    <div>
+    <Box component="div" sx={{ paddingX: 1 }}>
+      <Typography
+        variant="h5"
+        noWrap
+        component="div"
+        sx={{ fontWeight: "bold", marginLeft: 2 }}
+      >
+        App title
+      </Typography>
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
-            <ListItemText primary={text} />
+            {/* <ListItemText primary={text} /> */}
           </ListItem>
         ))}
       </List>
@@ -100,11 +113,11 @@ function DashboardContent(props) {
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
-            <ListItemText primary={text} />
+            {/* <ListItemText primary={text} /> */}
           </ListItem>
         ))}
       </List>
-    </div>
+    </Box>
   );
 
   return (
@@ -119,14 +132,7 @@ function DashboardContent(props) {
       }}
     >
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        // sx={{
-        //   width: { sm: `calc(100% - ${drawerWidth}px)` },
-        //   ml: { sm: `${drawerWidth}px` },
-        // }}
-        open={smallBreakpointUpDrawerOpen}
-      >
+      <AppBar position="fixed" open={smallBreakpointUpDrawerOpen}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -137,30 +143,17 @@ function DashboardContent(props) {
           >
             <MenuIcon />
           </IconButton>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer}
-            sx={{
-              marginRight: "36px",
-              display: {
-                xs: "none",
-                sm: smallBreakpointUpDrawerOpen ? "none" : "block",
-              },
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" noWrap component="div">
-            MUI iPad Layout
+            Page title
           </Typography>
         </Toolbar>
       </AppBar>
       <Box
         component="nav"
         sx={{
-          width: { sm: smallBreakpointUpDrawerOpen ? drawerWidth : 0 },
+          width: {
+            sm: smallBreakpointUpDrawerOpen ? drawerWidth : miniDrawerWidth,
+          },
           flexShrink: { sm: 0 },
         }}
         aria-label="mailbox folders"
@@ -190,11 +183,13 @@ function DashboardContent(props) {
           sx={{
             display: {
               xs: "none",
-              sm: smallBreakpointUpDrawerOpen ? "block" : "none",
+              sm: "block",
             },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: drawerWidth,
+              width: smallBreakpointUpDrawerOpen
+                ? drawerWidth
+                : miniDrawerWidth,
             },
           }}
         >
@@ -202,12 +197,11 @@ function DashboardContent(props) {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "flex-end",
               px: [1],
             }}
           >
             <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
+              <MenuIcon />
             </IconButton>
           </Toolbar>
           {drawer}
@@ -219,7 +213,11 @@ function DashboardContent(props) {
           flexGrow: 1,
           p: 3,
           overflow: "auto",
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: {
+            sm: smallBreakpointUpDrawerOpen
+              ? `calc(100% - ${miniDrawerWidth}px)`
+              : `calc(100% - ${drawerWidth}px)`,
+          },
         }}
       >
         <Toolbar />
