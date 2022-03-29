@@ -4,10 +4,14 @@ import {
   List,
   ListItem,
   ListItemIcon,
+  ListItemText,
   Typography,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import BrushIcon from "@mui/icons-material/Brush";
+import ColorLensIcon from "@mui/icons-material/ColorLens";
+import FormatPaintIcon from "@mui/icons-material/FormatPaint";
+import ArticleIcon from "@mui/icons-material/Article";
+import WebIcon from "@mui/icons-material/Web";
 
 function DrawerContent({ open }) {
   return (
@@ -36,26 +40,49 @@ function DrawerContent({ open }) {
         App title
       </Typography>
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            {/* <ListItemText primary={text} /> */}
-          </ListItem>
-        ))}
+        <ListItem button>
+          <ListItemIcon>
+            <BrushIcon />
+          </ListItemIcon>
+          <ListItemText>Action 1</ListItemText>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ColorLensIcon />
+          </ListItemIcon>
+          <ListItemText>Action 2</ListItemText>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <FormatPaintIcon />
+          </ListItemIcon>
+          <ListItemText>Action 3</ListItemText>
+        </ListItem>
       </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
+      <Box
+        component="div"
+        sx={{
+          display: {
+            sm: open ? "block" : "none",
+          },
+        }}
+      >
+        <Divider />
+        <List>
+          <ListItem button>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              <ArticleIcon />
             </ListItemIcon>
-            {/* <ListItemText primary={text} /> */}
+            <ListItemText>Page 1</ListItemText>
           </ListItem>
-        ))}
-      </List>
+          <ListItem button>
+            <ListItemIcon>
+              <WebIcon />
+            </ListItemIcon>
+            <ListItemText>Page 2</ListItemText>
+          </ListItem>
+        </List>
+      </Box>
     </Box>
   );
 }
