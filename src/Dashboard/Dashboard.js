@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -56,9 +56,9 @@ const SmallUpDrawer = styled(Drawer, {
   },
 }));
 
-function DashboardContent(props) {
-  const [xSmallDrawerOpen, setXSmallDrawerOpen] = React.useState(false);
-  const [smallUpDrawerOpen, setSmallUpDrawerOpen] = React.useState(true);
+function DashboardContent() {
+  const [xSmallDrawerOpen, setXSmallDrawerOpen] = useState(false);
+  const [smallUpDrawerOpen, setSmallUpDrawerOpen] = useState(true);
 
   const toggleXSmallDrawer = () => {
     setXSmallDrawerOpen(!xSmallDrawerOpen);
