@@ -21,34 +21,6 @@ const XSMALL_DRAWER_WIDTH = 240;
 const SMALL_UP_DRAWER_WIDTH_COLLAPSED = 56;
 const SMALL_UP_DRAWER_WIDTH_OPEN = 320;
 
-// const AppBar = styled(MuiAppBar, {
-//   shouldForwardProp: (prop) => prop !== "open",
-// })(({ theme, open }) => ({
-//   zIndex: theme.zIndex.drawer + 1,
-//   [theme.breakpoints.up("sm")]: {
-//     marginLeft: `${SMALL_UP_DRAWER_WIDTH_COLLAPSED}px`,
-//     width: `calc(100% - ${SMALL_UP_DRAWER_WIDTH_COLLAPSED}px)`,
-//     transition: theme.transitions.create(["width", "margin"], {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.leavingScreen,
-//     }),
-//   },
-//   ...(open && {
-//     [theme.breakpoints.up("sm")]: {
-//       marginLeft: `${SMALL_UP_DRAWER_WIDTH_OPEN}px`,
-//       width: `calc(100% - ${SMALL_UP_DRAWER_WIDTH_OPEN}px)`,
-//     },
-//     transition: theme.transitions.create(["width", "margin"], {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//   }),
-// }));
-
-// const Main = styled(Box, {
-
-// });
-
 const SmallUpDrawer = styled(Drawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -166,7 +138,7 @@ function DashboardContent(props) {
           },
           flexShrink: { sm: 0 },
         }}
-        aria-label="mailbox folders"
+        aria-label="menu"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
@@ -208,11 +180,6 @@ function DashboardContent(props) {
         sx={{
           flexGrow: 1,
           overflow: "auto",
-          width: {
-            sm: smallUpDrawerOpen
-              ? `calc(100% - ${SMALL_UP_DRAWER_WIDTH_COLLAPSED}px)`
-              : `calc(100% - ${SMALL_UP_DRAWER_WIDTH_OPEN}px)`,
-          },
         }}
       >
         <MuiAppBar
