@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
+import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -173,8 +174,11 @@ function DashboardContent() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            {/* Recent Deposits */}
+            <Paper sx={{ p: 2, marginBottom: 4 }}>
+              <TextField label="Enter text" variant="standard" />
+            </Paper>
 
+            {/* Recent Deposits */}
             <Paper
               sx={{
                 p: 2,
