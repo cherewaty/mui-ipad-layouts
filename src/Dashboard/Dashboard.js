@@ -1,21 +1,17 @@
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
-import MuiAppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-// import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
+import {
+  AppBar,
+  Box,
+  Container,
+  Drawer,
+  IconButton,
+  TextField,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Container from "@mui/material/Container";
+import DrawerContent from "./DrawerContent";
 
 const XSMALL_DRAWER_WIDTH = 280;
 const SMALL_UP_DRAWER_WIDTH_COLLAPSED = 56;
@@ -68,55 +64,6 @@ function DashboardContent() {
     setSmallUpDrawerOpen(!smallUpDrawerOpen);
   };
 
-  const drawer = (
-    <Box
-      component="div"
-      sx={{
-        paddingX: {
-          xs: 1,
-          sm: smallUpDrawerOpen ? 1 : 0,
-        },
-      }}
-    >
-      <Typography
-        variant="h5"
-        noWrap
-        component="div"
-        sx={{
-          fontWeight: "bold",
-          marginLeft: 2,
-          display: {
-            xs: "block",
-            sm: smallUpDrawerOpen ? "block" : "none",
-          },
-        }}
-      >
-        App title
-      </Typography>
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            {/* <ListItemText primary={text} /> */}
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            {/* <ListItemText primary={text} /> */}
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-
   return (
     <Box
       sx={{
@@ -140,13 +87,12 @@ function DashboardContent() {
         }}
         aria-label="menu"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           variant="temporary"
           open={xSmallDrawerOpen}
           onClose={toggleXSmallDrawer}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -157,7 +103,7 @@ function DashboardContent() {
           }}
         >
           <Toolbar />
-          {drawer}
+          <DrawerContent />
         </Drawer>
         <SmallUpDrawer variant="permanent" open={smallUpDrawerOpen}>
           <Toolbar
@@ -172,7 +118,7 @@ function DashboardContent() {
               <MenuIcon />
             </IconButton>
           </Toolbar>
-          {drawer}
+          <DrawerContent open={smallUpDrawerOpen} />
         </SmallUpDrawer>
       </Box>
       <Box
@@ -182,7 +128,7 @@ function DashboardContent() {
           overflow: "auto",
         }}
       >
-        <MuiAppBar
+        <AppBar
           elevation={0}
           position="sticky"
           sx={{
@@ -207,7 +153,7 @@ function DashboardContent() {
               Page title
             </Typography>
           </Toolbar>
-        </MuiAppBar>
+        </AppBar>
         <Container>
           <Box component="div" sx={{ marginBottom: 4 }}>
             <TextField label="Enter text" variant="standard" />
