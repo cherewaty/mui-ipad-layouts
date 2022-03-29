@@ -87,12 +87,27 @@ function DashboardContent(props) {
   };
 
   const drawer = (
-    <Box component="div" sx={{ paddingX: 1 }}>
+    <Box
+      component="div"
+      sx={{
+        paddingX: {
+          xs: 1,
+          sm: smallBreakpointUpDrawerOpen ? 1 : 0,
+        },
+      }}
+    >
       <Typography
         variant="h5"
         noWrap
         component="div"
-        sx={{ fontWeight: "bold", marginLeft: 2 }}
+        sx={{
+          fontWeight: "bold",
+          marginLeft: 2,
+          display: {
+            xs: "block",
+            sm: smallBreakpointUpDrawerOpen ? "block" : "none",
+          },
+        }}
       >
         App title
       </Typography>
