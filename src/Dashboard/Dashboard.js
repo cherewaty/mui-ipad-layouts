@@ -49,7 +49,10 @@ const SmallUpDrawer = styled(Drawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   "& .MuiDrawer-paper": {
-    position: "relative",
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
+    },
     whiteSpace: "nowrap",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
@@ -58,15 +61,11 @@ const SmallUpDrawer = styled(Drawer, {
     }),
     boxSizing: "border-box",
     ...(!open && {
-      overflowX: "hidden",
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9),
-      },
+      width: miniDrawerWidth,
     }),
   },
 }));
@@ -200,25 +199,13 @@ function DashboardContent(props) {
           <Toolbar />
           {drawer}
         </Drawer>
-        <Drawer
-          variant="permanent"
-          open={smallUpDrawerOpen}
-          sx={{
-            display: {
-              xs: "none",
-              sm: "block",
-            },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: smallUpDrawerOpen ? drawerWidth : miniDrawerWidth,
-            },
-          }}
-        >
+        <SmallUpDrawer variant="permanent" open={smallUpDrawerOpen}>
           <Toolbar
             sx={{
               display: "flex",
               alignItems: "center",
               px: [1],
+              marginBottom: 1,
             }}
           >
             <IconButton onClick={toggleSmallUpDrawer}>
@@ -226,7 +213,7 @@ function DashboardContent(props) {
             </IconButton>
           </Toolbar>
           {drawer}
-        </Drawer>
+        </SmallUpDrawer>
       </Box>
       <Box
         component="main"
