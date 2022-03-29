@@ -17,7 +17,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 
-const XSMALL_DRAWER_WIDTH = 240;
+const XSMALL_DRAWER_WIDTH = 280;
 const SMALL_UP_DRAWER_WIDTH_COLLAPSED = 56;
 const SMALL_UP_DRAWER_WIDTH_OPEN = 320;
 
